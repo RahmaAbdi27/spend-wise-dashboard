@@ -1,109 +1,52 @@
-<<<<<<< HEAD
-# SpendWise Dashboard
+# SpendWise - Personal Budgeting Dashboard
 
 ## Project Description
-
-SpendWise is a simple personal finance dashboard built using HTML and CSS. It organizes spending categories into a clean, user-friendly layout.
-
-## Features
-
-- Sidebar navigation for easy access to dashboard sections.
-- Header with a welcome message and user profile.
-- Six spending category cards with sample financial data.
-- Responsive design for desktop and mobile screens.
-- Hover and keyboard focus effects on interactive elements.
-- Dark theme support based on the user's system preferences.
-
-## Technologies Used
-
-- **HTML5:** Structures the dashboard content.
-- **CSS3:** Styles the dashboard and controls its layout.
-- **CSS Grid:** Organizes the main dashboard and spending cards.
-- **Flexbox:** Aligns the sidebar, header, navigation links, and card content.
-- **CSS Variables:** Manage theme colors consistently.
-- **Media Queries:** Make the dashboard responsive on smaller screens.
-
-## Project Files
-
-- `index.html` — Contains the structure and content of the dashboard.
-- `style.css` — Contains the styles, layouts, animations, responsive rules, and theme settings.
-- `README.md` — Explains the project, features, technologies, and files.
-
-## How to Run the Project
-
-1. Download or clone this repository.
-2. Open the project folder.
-3. Open `index.html` in a web browser.
-4. Resize the browser window to test the responsive layout.
-
-## Learning Outcomes
-
-This project demonstrates how to use CSS Grid and Flexbox together to create an organized, responsive dashboard without absolute positioning.
-
-## Author
-
-Created as part of the PLP Week 4 CSS Grid and Flexbox assignment.
-
-
-
-
-
-# SpendWise Dashboard
-
-## Project Description
-SpendWise is a budgeting dashboard that helps users understand
-their monthly expenses, savings, and remaining balance.
+SpendWise is a personal budgeting application that helps users manage their monthly budget, track expenses, calculate savings, and determine their remaining balance.
 
 ## JavaScript Concepts Implemented
 
-### Variables
-The application uses `let` variables to store the monthly budget,
-food expenses, transport expenses, rent, entertainment, utilities,
-and savings.
+### 1. Variables
+The application uses variables to store the monthly budget, food expenses, transport expenses, rent, entertainment, utilities, and savings.
 
-### Data Types
-Numbers are used for budgeting amounts, while strings are used
-for user input and messages.
+### 2. Data Types
+Numbers represent budget and expense amounts, while strings are used for messages and user input.
 
-### User Input
-The `prompt()` function collects the monthly budget and an
-additional expense from the user. The `Number()` function converts
-the entered amounts into numbers for calculations.
+### 3. User Input
+The `prompt()` function collects the user's monthly budget and additional expenses. The `Number()` function converts the entered values into numbers.
 
-### Budget Calculations
-The `calculateTotalExpenses()` function adds the expense categories.
-The `calculateRemainingBalance()` function subtracts expenses and
-savings from the monthly budget.
+### 4. Budget Calculations
+The `calculateTotalExpenses()` function adds all expense categories and additional expenses.
 
-### Functions
-Functions organize the code into smaller reusable tasks.
-They make the application easier to understand, test, and maintain.
+The `calculateRemainingBalance()` function subtracts total expenses and savings from the user's budget.
 
-### Displaying Results
-The `console.log()` method displays the budget, expense categories,
-savings, total expenses, remaining balance, and budget status
-in the browser console.
+### 5. Reusable Functions
+The application uses:
+- `calculateTotalExpenses()`
+- `calculateRemainingBalance()`
+- `collectUserInput()`
+
+These functions organize the code into smaller reusable tasks.
+
+### 6. Displaying Results
+The `console.log()` method displays the budget, expense categories, total expenses, remaining balance, and budget status in the browser console.
 
 ## Technologies Used
-- HTML
-- CSS
+- HTML5
+- CSS3
 - JavaScript
+
+## Project Files
+- `index.html` - Structures the dashboard.
+- `style.css` - Styles the dashboard.
+- `script.js` - Handles budgeting calculations and user input.
+- `README.md` - Documents the project.
 
 ## How to Run
 1. Open the project folder in Visual Studio Code.
-2. Open `index.html` using Live Server.
-3. Enter the requested amounts in the prompts.
-4. Open Developer Tools and select Console to view the report.
+2. Open `index.html` using a browser or Live Server.
+3. Enter your monthly budget when prompted.
+4. Enter an additional expense.
+5. Open Developer Tools and select Console to view the budget report.
 
 ## Author
-SpendWise Week 6 Assignment
-=======
-# PLP Python Week 4
-
-This repository contains my Week 4 Python assignment.
-
-- `welcome.py` - Contains a welcome function that greets different people.
-- `toolbox.py` - Contains three functions: double, is_pass, and greet.
-
-The hardest function to write was `greet` because it uses a default parameter for the greeting. I had to understand how the function uses "Hello" when no other greeting is provided.
->>>>>>> origin/main
+SpendWise - PLP Week 6 JavaScript Assignment
