@@ -1,93 +1,58 @@
 
-/* SpendWise - Week 6 JavaScript Assignment */
+// SPENDWISE - WEEK 5 JAVASCRIPT ASSIGNMENT
 
-// 1. Variables: store the dashboard's budgeting data
-let monthlyBudget = 20000;
-
-let foodExpense = 4500;
-let transportExpense = 2000;
-let rentExpense = 6000;
-let entertainmentExpense = 1200;
-let savings = 3000;
-let utilitiesExpense = 1500;
-
-// 2. Function to calculate total expenses
-function calculateTotalExpenses() {
-    return foodExpense + transportExpense + rentExpense
-        + entertainmentExpense + utilitiesExpense;
-}
-
-// 3. Function to calculate the remaining balance
-function calculateRemainingBalance(budget, expenses, savingsAmount) {
-    return budget - expenses - savingsAmount;
-}
-
-// 4. Function to collect user input
+// 1. Collect user input
 function collectUserInput() {
-    let budgetInput = prompt(
-        "Welcome to SpendWise!\nEnter your monthly budget in KSh:"
-    );
+    let monthlyBudget = Number(prompt("Enter your monthly budget:"));
 
-    if (budgetInput === null || budgetInput.trim() === "") {
-        console.log("Budget input was cancelled or left empty.");
-        return;
-    }
+    let food = Number(prompt("Enter food expenses:"));
+    let transport = Number(prompt("Enter transport expenses:"));
+    let rent = Number(prompt("Enter rent expenses:"));
+    let entertainment = Number(prompt("Enter entertainment expenses:"));
+    let utilities = Number(prompt("Enter utilities expenses:"));
+    let savings = Number(prompt("Enter savings amount:"));
 
-    let userBudget = Number(budgetInput);
-
-    if (!Number.isFinite(userBudget) || userBudget <= 0) {
-        console.log("Please enter a valid budget greater than zero.");
-        return;
-    }
-
-    let expenseInput = prompt(
-        "Enter an additional expense amount in KSh:"
-    );
-
-    if (expenseInput === null || expenseInput.trim() === "") {
-        console.log("Expense input was cancelled or left empty.");
-        return;
-    }
-
-    let additionalExpense = Number(expenseInput);
-
-    if (!Number.isFinite(additionalExpense) || additionalExpense < 0) {
-        console.log("Please enter a valid expense amount.");
-        return;
-    }
-
-    // 5. Perform calculations
-    let totalExpenses = calculateTotalExpenses() + additionalExpense;
-
-    let remainingBalance = calculateRemainingBalance(
-        userBudget,
-        totalExpenses,
+    return {
+        monthlyBudget,
+        food,
+        transport,
+        rent,
+        entertainment,
+        utilities,
         savings
-    );
-
-    // 6. Display clearly labelled results in the console
-    console.log("===== SPENDWISE BUDGET REPORT =====");
-    console.log("Monthly Budget: KSh " + userBudget.toFixed(2));
-    console.log("Food: KSh " + foodExpense.toFixed(2));
-    console.log("Transport: KSh " + transportExpense.toFixed(2));
-    console.log("Rent: KSh " + rentExpense.toFixed(2));
-    console.log("Entertainment: KSh " + entertainmentExpense.toFixed(2));
-    console.log("Utilities: KSh " + utilitiesExpense.toFixed(2));
-    console.log("Savings: KSh " + savings.toFixed(2));
-    console.log("Additional Expense: KSh " + additionalExpense.toFixed(2));
-    console.log("Total Expenses: KSh " + totalExpenses.toFixed(2));
-    console.log("Remaining Balance: KSh " + remainingBalance.toFixed(2));
-
-    if (remainingBalance > 0) {
-        console.log("Status: You are within your budget.");
-    } else if (remainingBalance === 0) {
-        console.log("Status: Your budget has been fully allocated.");
-    } else {
-        console.log("Status: You have exceeded your budget.");
-    }
-
-    console.log("==================================");
+    };
 }
 
-// 7. Run the application
-collectUserInput();
+// 2. Calculate total expenses
+function calculateTotalExpenses(data) {
+    return data.food + data.transport + data.rent +
+           data.entertainment + data.utilities;
+}
+
+// 3. Calculate remaining balance
+function calculateRemainingBalance(budget, expenses, savings) {
+    return budget - expenses - savings;
+}
+
+// 4. Collect data and calculate results
+let budgetData = collectUserInput();
+
+let totalExpenses = calculateTotalExpenses(budgetData);
+
+let remainingBalance = calculateRemainingBalance(
+    budgetData.monthlyBudget,
+    totalExpenses,
+    budgetData.savings
+);
+
+// 5. Display budget report
+console.log("===== SPENDWISE BUDGET REPORT =====");
+console.log("Monthly Budget: KSh " + budgetData.monthlyBudget);
+console.log("Food: KSh " + budgetData.food);
+console.log("Transport: KSh " + budgetData.transport);
+console.log("Rent: KSh " + budgetData.rent);
+console.log("Entertainment: KSh " + budgetData.entertainment);
+console.log("Utilities: KSh " + budgetData.utilities);
+console.log("Savings: KSh " + budgetData.savings);
+console.log("Total Expenses: KSh " + totalExpenses);
+console.log("Remaining Balance: KSh " + remainingBalance);
