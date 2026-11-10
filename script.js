@@ -1,58 +1,244 @@
 
-// SPENDWISE - WEEK 5 JAVASCRIPT ASSIGNMENT
+// ==========================================
+// SPENDWISE - WEEK 6 INTERACTIVE DASHBOARD
+// ==========================================
 
-// 1. Collect user input
-function collectUserInput() {
-    let monthlyBudget = Number(prompt("Enter your monthly budget:"));
+// 1. INITIAL DATA USING ARRAYS
 
-    let food = Number(prompt("Enter food expenses:"));
-    let transport = Number(prompt("Enter transport expenses:"));
-    let rent = Number(prompt("Enter rent expenses:"));
-    let entertainment = Number(prompt("Enter entertainment expenses:"));
-    let utilities = Number(prompt("Enter utilities expenses:"));
-    let savings = Number(prompt("Enter savings amount:"));
+let monthlyBudget = 20000;
 
-    return {
-        monthlyBudget,
-        food,
-        transport,
-        rent,
-        entertainment,
-        utilities,
-        savings
+let expenses = [
+    { description: "Food shopping", category: "Food", amount: 4500 },
+    { description: "Transport", category: "Transport", amount: 2000 },
+    { description: "House rent", category: "Rent", amount: 6000 },
+    { description: "Movie and entertainment", category: "Entertainment", amount: 1200 },
+    { description: "Electricity", category: "Utilities", amount: 1500 }
+];
+
+let savings = 3000;
+
+
+// 2. FUNCTION TO FORMAT CURRENCY
+
+function formatCurrency(amount) {
+    return "KSh " + amount.toLocaleString("en-KE");
+}
+
+
+// 3. CALCULATE TOTAL EXPENSES USING A LOOP
+
+function calculateTotalExpenses() {
+    let total = 0;
+
+    for (let i = 0; i < expenses.length; i++) {
+        total += expenses[i].amount;
+    }
+
+    return total;
+}
+
+
+// 4. CALCULATE REMAINING BALANCE
+
+function calculateRemainingBalance() {
+    return monthlyBudget - calculateTotalExpenses() - savings;
+}
+
+
+// 5. CALCULATE EXPENSES BY CATEGORY
+
+function calculateCategoryTotals() {
+
+    let totals = {
+        Food: 0,
+        Transport: 0,
+        Rent: 0,
+        Entertainment: 0,
+        Utilities: 0
     };
+
+    expenses.forEach(function(expense) {
+        totals[expense.category] += expense.amount;
+    });
+
+    return totals;
 }
 
-// 2. Calculate total expenses
-function calculateTotalExpenses(data) {
-    return data.food + data.transport + data.rent +
-           data.entertainment + data.utilities;
+
+// 6. UPDATE DASHBOARD USING DOM MANIPULATION
+
+function updateDashboard() {
+
+    let totalExpenses = calculateTotalExpenses();
+    let remainingBalance = calculateRemainingBalance();
+
+    let categoryTotals = calculateCategoryTotals();
+
+    // Update total expenses and balance
+
+    document.getElementById("total-expenses").textContent =
+        formatCurrency(totalExpenses);
+
+    document.getElementById("remaining-balance").textContent =
+        formatCurrency(remainingBalance);
+
+    // Update category cards
+
+    document.getElementById("food-total").textContent =
+        formatCurrency(categoryTotals.Food);
+
+    document.getElementById("transport-total").textContent =
+        formatCurrency(categoryTotals.Transport);
+
+    document.getElementById("rent-total").textContent =
+        formatCurrency(categoryTotals.Rent);
+
+    document.getElementById("entertainment-total").textContent =
+        formatCurrency(categoryTotals.Entertainment);
+
+    document.getElementById("utilities-total").textContent =
+        formatCurrency(categoryTotals.Utilities);
+
+    document.getElementById("savings-total").textContent =
+        formatCurrency(savings);
+
+    // Display budget status
+
+    let status = document.getElementById("budget-status");
+
+    if (remainingBalance < 0) {
+        status.textContent =
+            "Warning! You have exceeded your monthly budget.";
+
+    } else if (remainingBalance === 0) {
+        status.textContent =
+            "Your budget has been fully used.";
+
+    } else if (remainingBalance <= monthlyBudget * 0.2) {
+        status.textContent =
+            "Warning! You are approaching your budget limit.";
+
+    } else {
+        status.textContent =
+            "Good job! You are managing your budget well.";
+    }
+
+    // Display transaction records
+
+    displayTransactions();
 }
 
-// 3. Calculate remaining balance
-function calculateRemainingBalance(budget, expenses, savings) {
-    return budget - expenses - savings;
+
+// 7. DISPLAY TRANSACTIONS USING A LOOP
+
+function displayTransactions() {
+
+    let transactionList =
+        document.getElementById("transaction-list");
+
+    transactionList.innerHTML = "";
+
+    if (expenses.length === 0) {
+
+        let message = document.createElement("li");
+
+        message.textContent = "No transactions yet.";
+
+        transactionList.appendChild(message);
+
+    } else {
+
+        expenses.forEach(function(expense) {
+
+            let item = document.createElement("li");
+
+            item.textContent =
+                expense.description + " - " +
+                expense.category + " - " +
+                formatCurrency(expense.amount);
+
+            transactionList.appendChild(item);
+
+        });
+    }
 }
 
-// 4. Collect data and calculate results
-let budgetData = collectUserInput();
 
-let totalExpenses = calculateTotalExpenses(budgetData);
+// 8. HANDLE ADD EXPENSE FORM USING EVENTS
 
-let remainingBalance = calculateRemainingBalance(
-    budgetData.monthlyBudget,
-    totalExpenses,
-    budgetData.savings
-);
+document.getElementById("expense-form")
+    .addEventListener("submit", function(event) {
 
-// 5. Display budget report
-console.log("===== SPENDWISE BUDGET REPORT =====");
-console.log("Monthly Budget: KSh " + budgetData.monthlyBudget);
-console.log("Food: KSh " + budgetData.food);
-console.log("Transport: KSh " + budgetData.transport);
-console.log("Rent: KSh " + budgetData.rent);
-console.log("Entertainment: KSh " + budgetData.entertainment);
-console.log("Utilities: KSh " + budgetData.utilities);
-console.log("Savings: KSh " + budgetData.savings);
-console.log("Total Expenses: KSh " + totalExpenses);
-console.log("Remaining Balance: KSh " + remainingBalance);
+        event.preventDefault();
+
+        let description =
+            document.getElementById("expense-description").value.trim();
+
+        let category =
+            document.getElementById("expense-category").value;
+
+        let amount =
+            Number(document.getElementById("expense-amount").value);
+
+        let message =
+            document.getElementById("form-message");
+
+        // Conditional validation
+
+        if (description === "" || category === "" || amount <= 0 ||
+            !Number.isFinite(amount)) {
+
+            message.textContent =
+                "Please enter valid expense information.";
+
+            return;
+        }
+
+        // Add new record to array
+
+        expenses.push({
+            description: description,
+            category: category,
+            amount: amount
+        });
+
+        message.textContent =
+            "Expense added successfully!";
+
+        // Reset form
+
+        document.getElementById("expense-form").reset();
+
+        // Refresh dashboard
+
+        updateDashboard();
+    });
+
+
+// 9. HANDLE MONTHLY BUDGET FORM
+
+document.getElementById("budget-form")
+    .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        let newBudget =
+            Number(document.getElementById("monthly-budget").value);
+
+        if (!Number.isFinite(newBudget) || newBudget <= 0) {
+
+            document.getElementById("budget-status").textContent =
+                "Please enter a valid monthly budget.";
+
+            return;
+        }
+
+        monthlyBudget = newBudget;
+
+        updateDashboard();
+    });
+
+
+// 10. DISPLAY INITIAL DASHBOARD DATA
+
+updateDashboard();

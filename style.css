@@ -1,5 +1,6 @@
+
 /* ========================================
-   1. THEME COLORS (CSS CUSTOM PROPERTIES)
+   1. THEME COLORS
 ======================================== */
 
 :root {
@@ -35,8 +36,14 @@ a {
     text-decoration: none;
 }
 
+button,
+input,
+select {
+    font: inherit;
+}
+
 /* ========================================
-   3. MAIN DASHBOARD LAYOUT (CSS GRID)
+   3. MAIN DASHBOARD LAYOUT
 ======================================== */
 
 .dashboard {
@@ -46,7 +53,7 @@ a {
 }
 
 /* ========================================
-   4. SIDEBAR (FLEXBOX)
+   4. SIDEBAR
 ======================================== */
 
 .sidebar {
@@ -78,8 +85,7 @@ a {
     border-radius: 10px;
     color: var(--secondary-text);
     font-weight: 600;
-    transition: background-color 200ms ease,
-                color 200ms ease;
+    transition: background-color 200ms ease, color 200ms ease;
 }
 
 .nav-link:hover,
@@ -114,7 +120,7 @@ a {
 }
 
 /* ========================================
-   6. HEADER (FLEXBOX)
+   6. HEADER
 ======================================== */
 
 .header {
@@ -177,12 +183,21 @@ a {
     font-size: 21px;
 }
 
-.summary > p:last-child {
+.summary > p {
     color: var(--secondary-text);
 }
 
+#budget-status {
+    margin-top: 16px;
+    padding: 12px;
+    background-color: var(--background-color);
+    border-left: 4px solid var(--accent-color);
+    border-radius: 8px;
+    font-weight: 600;
+}
+
 /* ========================================
-   8. CATEGORY CARDS (CSS GRID)
+   8. CATEGORY CARDS
 ======================================== */
 
 .categories {
@@ -202,9 +217,7 @@ a {
     border: 1px solid var(--border-color);
     border-radius: 16px;
     box-shadow: var(--card-shadow);
-
-    transition: transform 200ms ease,
-                box-shadow 200ms ease;
+    transition: transform 200ms ease, box-shadow 200ms ease;
 }
 
 .category-card:hover,
@@ -254,37 +267,115 @@ a {
 }
 
 /* ========================================
-   9. RECENT ACTIVITY
+   9. FORMS AND INPUT FIELDS
 ======================================== */
 
-.activity {
+#budget-form,
+#expense-form {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    padding: 24px;
-    background-color: var(--surface-color);
+    margin-top: 16px;
+}
+
+#budget-form {
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary-text);
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px 14px;
     border: 1px solid var(--border-color);
-    border-radius: 16px;
+    border-radius: 8px;
+    background-color: var(--surface-color);
+    color: var(--primary-text);
+    outline: none;
+    transition: border-color 200ms ease;
 }
 
-.activity h2 {
-    margin-bottom: 4px;
-    font-size: 20px;
-}
-
-.activity p {
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--border-color);
-    color: var(--secondary-text);
-}
-
-.activity p:last-child {
-    padding-bottom: 0;
-    border-bottom: none;
+input:focus,
+select:focus {
+    border-color: var(--brand-color);
+    outline: 2px solid rgba(21, 101, 192, 0.15);
 }
 
 /* ========================================
-   10. FOOTER
+   10. BUTTONS
+======================================== */
+
+button {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--brand-color);
+    color: #ffffff;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 200ms ease, transform 200ms ease;
+}
+
+button:hover {
+    background-color: #0d47a1;
+    transform: translateY(-2px);
+}
+
+button:focus-visible {
+    outline: 3px solid var(--accent-color);
+    outline-offset: 3px;
+}
+
+/* ========================================
+   11. FORM MESSAGES
+======================================== */
+
+#form-message {
+    margin-top: 12px;
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+/* ========================================
+   12. BUDGET SUMMARY
+======================================== */
+
+#budget-section > p {
+    margin-top: 10px;
+    color: var(--secondary-text);
+}
+
+#budget-section strong {
+    color: var(--brand-color);
+}
+
+/* ========================================
+   13. TRANSACTION LIST
+======================================== */
+
+#transaction-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    list-style: none;
+}
+
+#transaction-list li {
+    padding: 14px;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--secondary-text);
+    overflow-wrap: anywhere;
+}
+
+/* ========================================
+   14. FOOTER
 ======================================== */
 
 .page-footer {
@@ -296,10 +387,11 @@ a {
 }
 
 /* ========================================
-   11. RESPONSIVE DESIGN (BELOW 768px)
+   15. RESPONSIVE DESIGN
 ======================================== */
 
 @media (max-width: 767px) {
+
     .dashboard {
         grid-template-columns: minmax(0, 1fr);
     }
@@ -348,10 +440,11 @@ a {
 }
 
 /* ========================================
-   12. DARK THEME (STRETCH GOAL)
+   16. DARK THEME
 ======================================== */
 
 @media (prefers-color-scheme: dark) {
+
     :root {
         --brand-color: #60a5fa;
         --accent-color: #5eead4;
@@ -361,5 +454,9 @@ a {
         --secondary-text: #cbd5e1;
         --border-color: #334155;
         --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    button:hover {
+        background-color: #2563eb;
     }
 }
